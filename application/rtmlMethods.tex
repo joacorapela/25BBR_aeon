@@ -1,0 +1,94 @@
+Real-time machine learning (RTML) remains underutilised in neuroscience. This represents a missed opportunity—especially in the context of NaLoDuCo experimentation—where adaptive, low-latency computation could greatly enhance experimental control and scientific discovery.
+
+We will attempt a real time implementation of the pipeline in Table 1, adapted for robustness in non-stationary evironments.
+
+\subsubsubsection{Bonsai and Bonsai.ML}
+
+Bonsai is a widely adopted open-source software ecosystem for experimental
+control in neuroscience~\cite{lopesEtAl15}. With support from the
+\href{https://gow.bbsrc.ukri.org/grants/AwardDetails.aspx?FundingReference=BB\%2FW019132\%2F1}{BBSRC},
+we are developing infrastructure for intelligent, closed-loop experimentation
+through the \href{https://bonsai-rx.org/machinelearning/}{Bonsai.ML} package.
+
+We have already integrated several real-time ML models into Bonsai.ML,
+including linear regression, linear dynamical systems, hidden Markov models,
+and Bayesian point-process decoders. In collaboration with researchers at SWC
+and UCL, we are applying these models to real-time inference of visual
+receptive fields, foraging kinematics, behavioural state classification, and
+spatial decoding of hippocampal spiking activity (see the
+\href{https://bonsai-rx.org/machinelearning/examples/README.html}{Bonsai.ML examples}).
+
+However, current Bonsai.ML models assume stationarity—a strong and often
+invalid assumption in NaLoDuCo contexts. We will adapt these methods to operate
+under non-stationary conditions using the previously described techniques.
+
+Linear models from adaptive signal processing, such as least mean squares and
+recursive least squares, are already suited for real-time use and require no
+major modification. Nonlinear regression, particularly using artificial neural
+networks (ANNs), can support real-time inference (especially on GPUs), but
+real-time learning is more challenging. Continual learning methods—such as
+experience replay and online regularization—introduce additional computational
+overhead (e.g., data buffering, importance weight tracking) that may exceed the
+constraints of real-time systems. To address these constraints, we will explore
+adaptation strategies:
+
+\begin{enumerate}
+
+	\item\textbf{Real-time minibatch updates:} Training is performed on small
+	minibatches as data arrive, balancing learning speed with latency.
+
+	\item\textbf{Bounded-time updates:} Only a subset of model parameters
+	(e.g., output layer weights) is updated to reduce computation time.
+
+	\item\textbf{Hybrid strategy:} A dual-pipeline system in which a
+	lightweight process performs fast inference, while a slower process
+	(running on a separate processor or node) accumulates recent data in a
+	rolling buffer and periodically retrains or updates the model. The updated
+	model is deployed into the fast path only after validation, ensuring
+	continuity in inference.
+
+\end{enumerate}
+
+All new RTML tools will be released as open-source extensions to the
+\href{https://bonsai-rx.org/machinelearning/}{Bonsai.ML} package.
+
+\subsubsubsection{Experimental Replays in AEON}
+
+We will extend the AEON platform with functionality to replay previously
+recorded experimental data. Real-time machine learning (RTML) objects in AEON
+typically receive input from live data streams—such as video frames from
+cameras or voltage measurements from Neuropixels probes—each precisely
+timestamped using the HARP protocol. This protocol ensures that every item in
+the stream is tagged with the exact time it occurred during the experiment.
+
+The new replay feature will regenerate all data streams from a previous
+experiment and deliver each data item to its observers at exactly the same
+relative time as in the original experiment. This enables RTML components to be
+tested under identical conditions to those in live experiments, while
+eliminating the need to rerun time-consuming and resource-intensive
+experiments. This supports the 3Rs by reducing animal use (Reduction) and
+enabling partial replacement of live testing (Replacement).
+
+Replay functionality will enable comprehensive testing of RTML methods.
+Researchers will be able to debug their pipelines, evaluate different parameter
+settings, and verify that real-time constraints are met—all without placing
+additional demands on experimental animals or facilities. This is particularly
+critical in NaLoDuCo settings, where experiments run continuously for weeks or
+months and are costly, laborious, and ethically sensitive.
+
+\subsubsubsection{Deliverables}
+
+\begin{enumerate}
+
+	\item New real-time machine learning methods for non-stationary
+	experimental control, integrated into the open-source
+	\href{https://bonsai-rx.org/machinelearning/}{Bonsai.ML} package.
+
+	\item AEON experimental replay functionality enabling real-time
+	reproductions of previously recorded AEON experiments, saving time,
+	resources and animal experiments.
+
+	\item Peer-reviewed publications co-authored with SWC and AIND researchers,
+	showcasing scientific advances made possible by the new RTML capabilities.
+
+\end{enumerate}

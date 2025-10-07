@@ -1,0 +1,44 @@
+Few methods currently support online spike sorting for high-channel-count
+probes. To the best of our knowledge, there is currently no readily-usable
+online spike sorting solution available for chronic Neuropixels recordings in
+freely moving mice.
+
+We will implement a new online and adaptive spike-sorting method using the
+hybrid strategy described in Section~Bonsai and Bonsai.ML.
+%
+Periodically, as new chunks of recording become available, the slower process
+in this strategy will update a catalogue of waveforms of detected units, as
+indicated in Section~Offline Spike Sorting.
+%
+With this catalogue, the lightweight process will perform template matching
+(i.e., detect spikes and match the corresponding waveform to that of a unit in
+the catalogue).
+%
+It will implemented as a Bonsai observable, and will operate on short chunks
+of tens to hundreds of milliseconds.
+%
+Since several template matching algorithms are available, we will benchmark
+them in terms of speed and accuracy against the offline spike sorting results.
+
+As online spike sorting will become essential for future adaptive experiments,
+we will integrate our solution into SWC and AIND Bonsai workflows for
+real-time visualization and spike-based analysis.
+
+\subsubsubsection{Deliverables}
+
+\begin{enumerate}
+
+    \item A new online spike-sorting method robust to non-stationarities in
+        NaLoDuCo experimentation, targeting a latency in the order of tens to
+        hundreds of milliseconds.
+
+    \item Integration of the new online spike sorting method into existing
+        Bonsai workflows at the SWC and AIND for closed-loop control and
+        real-time experimental feedback.
+
+    \item Open-source dissemination of code and tools for real-time spike
+        sorting, including documentation and example Bonsai workflows using
+        NaLoDuCo data.
+
+\end{enumerate}
+

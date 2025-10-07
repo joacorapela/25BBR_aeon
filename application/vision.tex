@@ -1,0 +1,50 @@
+The brain has evolved to shape behaviour based on a lifetime of interaction,
+learning and memory.  By contrast—and historically, of necessity—our
+understanding of brain function has mostly derived from short-duration
+controlled experiments.  While such experiments reveal key functional building
+blocks, they cannot explore the full gamut of ethology; nor tell us how the
+blocks fit together to shape lifelong behaviour.
+
+Recent advances in recording, video, and signal-processing technology make
+possible naturalistic, long-duration and continual (NaLoDuCo) experiments.  The
+partners in this BBSRC-NSF/BIO proposal have pioneered this transition.  The
+Aeon platform~\cite{campagnerEtAl25b} developed at the Sainsbury Wellcome Centre (SWC) and Gatsby
+Unit with support from NeuroGEARS, and adapted by the Allen Institute for
+Neural Dynamics (AIND), provides a modular environment of mechatronic elements
+and monitoring and recording pathways, enabling continuous high-resolution
+behavioural and neural measurement over an unprecedented timescale of many
+weeks to months (Figure). Aeon enables a new type of neuroscience experiment.
+Rather than tightly controlled, isolated, trial-based stimulus-behaviour
+contingencies, multiple contingencies are embedded in a single environment that
+animals explore, learn about, and engage with over weeks. Examples include mice
+foraging from patches of varying difficulty and rates of success
+(SWC/Gatsby)~\cite{campagnerEtAl25b} and the gradual acquisition of naturalistic olfactory
+associations (AIND)~\cite{finkEtAl24}. Continual high-resolution video and neurophysiological
+recording expose the neural underpinnings of all phases of these behaviours:
+including self-paced decisions about engagement with elements of the
+environment, internally-directed exploration, sensorimotor control within each
+local patch, memory and replay events during engagement and during sleep, and
+more.
+
+Central to Aeon is the vision of open science.  The design specifications of
+the system and components will be online.  Data collection is integrated into
+the open-source Bonsai software ecosystem~\cite{lopesEtAl15} supported by NeuroGEARS.  Equally
+important is that the data collected within Aeon be made available rapidly and
+easily to scientists worldwide, providing a rich, expanding and coherent data
+resource that will accelerate discovery.
+
+Our goal is to fully realise this vision, by developing complementary platform
+technologies for data analysis, visualisation, real-time feedback, and sharing.
+We will build core signal-processing and modelling pathways, real-time
+machine-learning algorithms that feed back to experiments, and an integrated
+platform to visualise and analyse remote-host-based data.
+
+To do so, we must overcome challenges raised by the scale and structure of
+NaLoDuCo experiments.  Analyses must track non-stationarity in underlying
+signals (including in the identification of action potentials from separate
+neurons).  We have integrated real-time machine-learning functionality in
+Bonsai (Bonsai.ML)~\cite{guilbeaultEtAl25}. We will add real-time machine-learning functionality
+for processing nonstationary NaLoDuCo data. Data volumes (potentially reaching
+hundreds of terabytes) preclude simple sharing. Instead we will develop a
+remote-based framework allowing users to explore and analyse behavioural and
+neural datasets in situ; with data uploaded once but used repeatedly.

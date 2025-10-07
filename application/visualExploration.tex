@@ -1,0 +1,83 @@
+Visualisations are essential for extracting insight from any dataset. Given the
+scale of NaLoDuCo datasets, downloading them locally is impractical. Therefore,
+visualisation methods must operate where the data resides—either in the cloud
+or on institutional HPC systems.
+
+We will develop visualisation functionality for both continuous datasets and
+epoched datasets, where epochs are anchored around events identified by
+advanced machine learning methods.
+
+\subsubsubsection{Continuous visualisations}
+
+Continuous visualizations will allow users to intuitively explore large-scale
+behavioral and neural datasets spanning weeks to months. Users will be able to
+zoom out for a high-level overview (e.g., a full month) or zoom in to examine
+millisecond-level details, offering an interactive experience similar to Google
+Maps for time series data.
+
+To enable this, we will implement:
+
+\begin{itemize}
+
+	\item\textbf{Multi-Resolution Tiling:} Datasets will be preprocessed into
+	tiles at various spatial and temporal resolutions, rendering only relevant
+	tiles as users zoom.
+
+	\item\textbf{Hierarchical Storage:} Data will be organized using formats
+	such as Zarr or HDF5 to support chunked, multi-resolution access.
+
+	\item\textbf{On-Demand Streaming:} Visualizations will stream data
+	dynamically, adapting to the user's current view.
+
+\end{itemize}
+
+\subsubsubsection{Epoched and interactive visual analytics}
+
+A key strength of our platform is its support for epoched visualisation and
+interactive, closed-loop visual analytics, which together enable the discovery
+and refinement of neural and behavioural patterns in long-duration datasets.
+
+\paragraph{Machine Learning-Defined Events.} A core feature of our system will
+be the ability to align epochs not just to experimenter-defined events, but
+also to latent state transitions inferred via unsupervised methods (e.g.,
+hidden Markov models, behavioural clustering, inverse reinforcement learning)
+
+\paragraph{Closed-Loop Analytics.} There will be a closed-loop interaction
+between visualisations and machine learning algorithms. In this loop:
+
+\begin{itemize}
+
+	\item \textbf{Machine learning algorithms} extract latent states, classify
+	behaviours, infer structure, or forecast dynamics from NaLoDuCo data.
+
+	\item These outputs feed into the visualisation engine to generate novel
+	views (e.g., state-aligned rasters, dynamic embeddings, attention maps).
+
+	\item \textbf{Users explore these visualisations interactively},
+	discovering unexpected, task-agnostic, or contextual patterns.
+
+	\item New queries and insights drive further rounds of machine learning
+	analysis—closing the loop.
+
+\end{itemize}
+
+This design enables researchers to co-develop computational models and
+scientific hypotheses iteratively, with human insight and machine inference
+deeply intertwined.
+
+\subsubsubsection{Deliverables}
+
+\begin{enumerate}
+
+	\item visualisations for continuous behavioural and neural recording
+
+	\item visualisations for epoched behavioural and neural recording
+
+	\item visualisations for model outputs
+
+	\item indexing system to support intelligent visualisations
+
+	\item deployment of the above items to allow users to visualise NaLoDuCo
+	DANDI datasets on the cloud
+
+\end{enumerate}
