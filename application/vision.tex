@@ -45,39 +45,60 @@ these features in a single experimental paradigm.
 
 % \subsubsection{Neural data analysis at scale}
 
-The pivotal lesson from AI is that data scale and diversity unlock model
-capacity. ImageNet supplied enough variation for deep networks to discover
-general features that smaller corpora could never support. NaLoDuCo recordings
-aim to do the same for neuroscience.
-%
-The scale of NaLoDuCo datasets enables questions—and models—that short datasets
-cannot:
+The key lesson from modern AI is that large and diverse datasets unlock much richer models.
+ImageNet, for example, was big and varied enough that deep networks could learn general visual
+features that never emerged from smaller collections of images. NaLoDuCo recordings are designed
+to play a similar role for neuroscience. Because they are long, rich, and multi-modal, they let us
+ask questions---and train models---that simply are not possible with short, trial-based datasets:
 
-\begin{description}
+\begin{itemize}
+  \item \textbf{Temporal depth.}
+  We can follow the same brain over hours, days, and weeks.
+  This allows models to learn how neural representations change slowly over time, capturing
+  processes such as plasticity, representational drift, consolidation after learning, and daily
+  (circadian) rhythms, rather than only fast, within-trial dynamics.
 
-	\item[Temporal depth:] Learn representations over hours-to-weeks, capturing
-slow plasticity, representational drift, consolidation, and circadian cycles.
+  \item \textbf{Rare phenomena.}
+  Many interesting neural and behavioural events are rare: abrupt reorientations, brief replay
+  events, transitions between sleep and wake, switches between behavioural states, and so on.
+  In short datasets these events may only appear a handful of times and are hard to study
+  quantitatively. Long NaLoDuCo recordings contain many more examples, so models can
+  actually detect, cluster, and predict these low-frequency events.
 
-	\item[Rare phenomena:] Detect and model low-frequency events
-(reorientations, replay, state transitions) that are under-sampled in standard
-datasets.
+  \item \textbf{Context richness.}
+  NaLoDuCo does not just record spikes in isolation.
+  For each time point we also have detailed behaviour (e.g.\ pose, movement, choices),
+  information about the environment and task (e.g.\ stimuli, trial structure, rewards),
+  and signals related to internal state (e.g.\ sleep vs.\ wake, level of arousal or engagement).
+  This means we can train models that jointly learn the relationships between neural activity,
+  behaviour, and context over long stretches of time---for example, how changes in behaviour
+  or task structure are reflected in neural population activity, or how internal state modulates
+  both. These models can be trained in a largely self-supervised way, by asking them to predict
+  or reconstruct one part of the data (such as behaviour) from the others (such as neural
+  activity and task context) across long continuous recordings.
 
-	\item[Context richness:] Jointly model neural activity with behavior,
-environment, and internal state (sleep, arousal), allowing multimodal,
-self-supervised objectives that need long contexts.
+  \item \textbf{Generalization.}
+  Because NaLoDuCo follows the same animal across many days and across different tasks,
+  we can train ``foundation-style'' transformer models on one part of the recording and test
+  them on another. For a single animal, we can ask whether a model trained on the first week
+  of data can still predict neural and behavioural activity, or decode task variables, on later
+  days and in new task conditions. When we combine data from multiple animals, the same
+  models can also learn structure that generalises across animals. This kind of within-animal
+  (across days and tasks) and cross-animal generalisation is very hard to achieve if all we have
+  are many short, isolated sessions.
 
-	\item[Generalization:] Train foundation-style models that transfer across
-animals, days, and tasks—something infeasible with small, episodic data.
+  \item \textbf{Closed-loop readiness.}
+  In the long run, we want models that can drive real-time, closed-loop experiments:
+  decoders and controllers that can track internal state and predict behaviour fast enough
+  to trigger interventions. To be robust in this setting, models must remain reliable across
+  the full range of the animal's natural variability---different behaviours, levels of arousal,
+  days since training, and so on. Only long-duration datasets like NaLoDuCo expose the model
+  to enough of this variability to make such robustness realistic.
+\end{itemize}
 
-	\item[Closed-loop readiness:] Train low-latency decoders and predictive
-controllers that remain reliable across the full spectrum of natural
-variability—a robustness that only emerges with long-duration data.
-
-\end{description}
-
-NaLoDuCo’s scale allow powerful models to see the brain at the timescales where
-its organizing principles live—just as large-scale datasets did for deep
-learning in computer vision.
+In short, NaLoDuCo's scale and richness let powerful models ``see'' the brain at the timescales
+and in the contexts where its organising principles actually operate, just as large-scale datasets
+did for deep learning in computer vision.
 
 This emerging paradigm of long-duration experimentation is poised to become
 mainstream in the coming years.
@@ -95,67 +116,68 @@ leaves, in the cloud or in institutional clusters.
 
 \begin{description}
 
-    \item[Data sharing:] Data generated by NaLoDuCo experiments will be of general interest to the
-neuroscience community. We want to share our NaLoDuCo foraging and odour
-learning recordings and allow other groups collecting this type of data to
-share their own, and to allow users interested in accessing our data to do so,
-for example, to analyze our NaLoDuCo recordings with new artificial
-intelligence algorithms.
-
-A milestone in AI happened in 2010 when deep neural network models achieved unprecedented performance in computer vision tasks. This performance boost critically depended on the existence of the MNIST dataset, without which AI would not be what it is today. We envision that NaLoDuCo datasets will mean for the neuroscience community what MNIST meant to the computer vision one.
-
+    \item[1. Data sharing:] We will share our NaLoDuCo foraging data, to allow
+        users interested in accessing it to do so, for example, to analyze
+        NaLoDuCo recordings with new artificial intelligence algorithms.
 %
-However, this dissemination is not trivial, as datasets are of the order of
-hundreds of terabytes, and it will take users several days to download them
-over standard Internet connections.
+        However, this dissemination is not trivial, as datasets are of the
+        order of hundreds of terabytes, and it will take users several days to
+        download them over standard Internet connections. Instead of bringing
+        data to users, we will bring users to data, by storing datasets in the
+        cloud, or in institutional high-performance-computing (HPC) systems,
+        and providing cloud software to visually explore and statistically
+        analyse behavioural and neural NaLoDuCo datasets where they live.
 
-Instead of bringing data to users, we will bring users to data, by storing
-datasets in the cloud, or in institutional high-performance-computing (HPC)
-systems, and providing \textbf{cloud software to allow users to visually
-explore and statistically analyse behavioural and neural NaLoDuCo datasets
-where they live} (1 and 2 in Figure~\ref{fig:aims}).
+    \item[2. Data visualisation:] Data visualization is a cornerstone of
+        scientific practice. John Tukey famously argued that ``\emph{the simple
+        graph has brought more information to the data analyst’s mind than any
+        other device}''~\citep{tukey62}.
+		%
+        Given the scale of NaLoDuCo datasets, downloading them locally is
+        impractical. Therefore, visualisation methods must operate where the
+        data resides.
+		%
+        We will develop cloud visualisation functionality for both continuous
+        datasets and epoched datasets, where epochs are anchored around events
+        identified by advanced machine learning methods.
 
-Our statistical analysis of neural time series will require knowledge of the
-spiking activity of single units; i.e., spike sorting. In long-duration
-experiments with freely moving animals spike sorting is a challenging problem,
-because movements of recording probes change the shape of spike waveforms over
-time and complicate the assignment of spikes to units based on their waveforms.
-We will address this problem by developing \textbf{spike sorting methods for
-long-duration, continual and high-channel-count recordings} (3 in
-Figure~\ref{fig:aims}).
+    \item[3. Data analysis:] At the SWC and Gatsby Unit we have developed a
+        comprehensive pipeline of ML methods for the analysis of short segments
+        of NaLoDuCo foraging behavioral and neural data.
+        %
+        Long-duration and continual time series, in settings where the
+        statistical properties of data change with time, pose unique analytical
+        challenges.
+        %
+        We will address them by developing ML methods tailored to (1) operate
+        in non-stationary environments and (2) function at scale.
+        %
+        These methods will be deployed to the cloud and institutional clusters.
+        %
+        With them, we will optimally and automatically extract meaning from
+        complete NaLODuCo foraging data.
+        %
+        In addition, these methods will serve as demonstrations for external
+        users of how to access and process efficiently NaLoDuCo data in the
+        cloud.
 
-Funded by a BBSRC award we are adding machine learning functionality to Bonsai
-in order to enable a new type of experimentation controlled by advanced machine
-learning inference on behavioural and neural
-recordings~\citep[Bonsai.ML,][]{guilbeaultEtAl25}. We have developed this
-functionality for conventional short duration experiments. We will add to
-Bonsai.ML \textbf{real-time machine learning functionality for processing
-nonstationary data}, such as that generated in NaLoDuCo experiments.
-
-Most of the online neural data analysis methods that we will add to AEON
-require sorted spikes. We will adapt the previous offline \textbf{spike sorting
-methods for long-duration experiment to operate in real-time} (5 in
-Figure~\ref{fig:aims}).
+    \item[4. Spike sorting:] Our statistical analysis of neural time series
+        will require knowledge of the spiking activity of single units; i.e.,
+        spike sorting. In long-duration experiments with freely moving animals
+        spike sorting is a challenging problem, because movements of recording
+        probes change the shape of spike waveforms over time and complicate the
+        assignment of spikes to units based on their waveforms.  We will
+        address this problem by developing spike sorting methods for
+        long-duration, continual and high-channel-count recordings. These
+        methods will be deployed in the cloud, with accompanying
+        visualisations.
 
 \end{description}
 
 \begin{figure}
     \begin{center}
-        % \includegraphics[width=3in]{figures/aims.png}
+        \includegraphics[width=3in]{figures/aims.png}
     \end{center}
     \caption{Specific aims}
     \label{fig:aims}
 \end{figure}
-
-Our goal is to fully realise this vision, by developing complementary platform
-technologies for data analysis, visualisation and sharing.
-We will build core signal-processing and modelling pathways, and an integrated
-platform to visualise and analyse remote-host-based data.
-
-To do so, we must overcome challenges raised by the scale and structure of
-NaLoDuCo experiments. Analyses must track non-stationarity in underlying
-signals (including in the identification of action potentials from separate
-neurons). Data volumes (potentially reaching hundreds of terabytes) preclude
-simple sharing. Instead we will develop a remote-based framework allowing users
-to explore and analyse behavioural and neural datasets in situ; with data
-uploaded once but used repeatedly.
