@@ -1,0 +1,229 @@
+
+Long-duration, continual data series pose particular analytic challenges,
+especially in settings where the statistical properties of the data vary with
+time.  We will address these challenges by developing a new NaLoDuCo-focused
+environment of machine-learning analysis methods specifically tailored to: (1)
+operate effectively under non-stationary conditions, and (2) scale to very long
+time series.
+
+\subsubsubsection*{Base analysis methods}
+
+Our first goal will be to provide robust and scalable implementations of
+methods that are already used at the GCNU, SWC, and AIND to analyse neural and
+behavioural time series.  These methods span multiple domains—kinematics,
+neural dynamics, behavioural state segmentation, forecasting, and joint
+modelling—and are designed to work together within an integrated analysis
+pipeline.
+
+\noindent\textbf{Behavioural Analysis:}
+
+The first step in behavioural analysis involves multi-body-part tracking. For
+this, we will use deep learning-based pose estimation methods such as
+\href{https://github.com/talmolab/sleap}{SLEAP}, which enable accurate and
+efficient tracking of multiple unmarked mice across long recording sessions.
+
+From the tracked poses, we will infer continuous kinematic variables using
+linear dynamical systems (LDS), including particle filter-based variants to
+handle uncertainty and measurement noise. These kinematic features will be used
+to infer discrete behavioural states with Hidden Markov Models (HMMs), as
+implemented in tools such as
+\href{https://dattalab.github.io/moseq2-website/index.html}{MoSeq}.
+
+We will relate these inferred states and kinematic variables to
+foraging-related outcomes—such as patch-leaving decisions—using both
+generalised linear models (GLMs) and deep neural networks. These models will
+allow us to capture both interpretable and high-capacity representations of
+behavioural decision-making processes.
+
+To recover the latent strategies guiding animal behaviour, we will apply
+inverse reinforcement learning methods such as
+\href{https://github.com/haozhu10015/hiql}{HIQL}, which estimate the underlying
+reward functions and policies based on observed actions.
+
+NaLoDuCo recordings uniquely support behavioural forecasting over extended
+horizons—ranging from hours to days—far beyond what is feasible in conventional
+short-duration experiments. To capitalise on this, we will apply long-horizon
+forecasting models using recurrent neural networks (RNNs) and transformer
+architectures, which are well-suited to modelling long-range temporal
+dependencies.
+
+\vspace{1em}
+\noindent\textbf{Neural Data Analysis:}
+
+Analysis of high-density electrophysiology will begin with latent variable
+modelling to reduce the dimensionality of population neural recordings. We will
+use both linear and nonlinear latent dynamics models, including
+\href{https://github.com/joacorapela/svGPFA}{svGPFA}, which uses Gaussian
+processes, and \href{https://snel.ai/resources/lfads/}{LFADS}, a deep
+generative model based on recurrent neural networks.
+
+The resulting low-dimensional trajectories will be used to infer discrete
+neural states via HMMs, using methods such as
+\href{https://github.com/lindermanlab/ssm}{SSM}. For neural activity
+forecasting across long duration, we will again employ RNNs and transformers,
+which can model complex temporal structure in spiking activity.
+
+We will also decode the animal’s position from hippocampal spike trains using
+point-process decoders, enabling the analysis of spatial coding and replay
+phenomena during naturalistic foraging behaviour. We will build on existing
+implementations such as
+\href{https://github.com/Eden-Kramer-Lab/replay_trajectory_classification}{replay\_trajectory\_classification}.
+
+\vspace{1em}
+\noindent\textbf{Joint Neural-Behavioural Modelling:}  
+
+To understand the interactions between neural dynamics and behaviour, we will
+use models that extract shared latent representations from both domains. These
+models will help reveal how cognitive and behavioural states are jointly
+encoded in neural activity.
+
+We will adapt Recognition-Parameterised Models (RPM), a Bayesian approach
+developed at the GCNU, which infers latent variables that explain multiple
+observation streams through highly nonlinear relationships. We will also use
+\href{https://cebra.ai/}{CEBRA}, a state-of-the-art contrastive learning
+framework designed for multimodal representation learning, to discover
+temporally and semantically aligned neural-behavioural structure.
+
+\begin{table}
+    \caption{Initial data analysis methods to disseminate}
+    \label{table:initialMethodsToDisseminate}
+    \begin{longtable}{|p{1.9cm}|p{3cm}|p{2.5cm}|p{4.5cm}|}
+        \hline
+        \textbf{Domain} & \textbf{Functionality} & \textbf{Method} & \textbf{Model Type} \\
+        \hline\hline
+        behaviour & multi-body-part tracking & SLEAP & deep neural network \\
+        \hline
+        behaviour & kinematics inference & LDS & linear dynamical system \\
+        \hline
+        behaviour & kinematics inference & LDS & particle filter \\
+        \hline
+        behaviour & state inference & SSM & hidden Markov model \\
+        \hline
+        behaviour & regression &  & generalised linear model \\
+        \hline
+        behaviour & regression &  & deep neural network \\
+        \hline
+        behaviour & policy inference & L(M)V-IQL & reinforcement learning \\
+        \hline
+        behaviour & long-duration forecasting &  & RNN \\
+        \hline
+        behaviour & long-duration forecasting &  & transformers \\
+        \hline\hline
+        brain & latents inference & svGPFA & Gaussian processes \\
+        \hline
+        brain & latents inference & LFADS & RNN \\
+        \hline
+        brain & state inference & SSM & hidden Markov model \\
+        \hline
+        brain & long-duration forecasting &  & RNN \\
+        \hline
+        brain & long-duration forecasting &  & transformers \\
+        \hline
+        brain & decoding & NA & point-process decoder \\
+        \hline\hline
+        brain \& behaviour & latents inference & RPM & Bayesian inference + deep neural network \\
+        \hline
+        brain \& behaviour & latents inference & CEBRA & contrastive learning \\
+        \hline
+    \end{longtable}
+\end{table}
+
+\subsubsubsection*{Non-stationarity}
+
+Many methods for analysing neural and behavioural time series assume that the
+underlying data-generating processes are stationary—that is, their statistical
+properties remain constant over time. While this assumption may be acceptable
+in short-duration experiments, it breaks down in long-duration and continual
+recordings. In such settings, animals learn and adapt, their internal states
+and motivations fluctuate, and their behaviour and physiology are influenced by
+biological rhythms such as circadian, ultradian, and infradian cycles. These
+changes induce non-stationarity in the data, making models that assume
+stationarity progressively less reliable or even obsolete.
+
+To address this challenge, we will adapt and develop methods that are
+explicitly designed to operate in non-stationary environments. Our approach
+draws on techniques from multiple domains, including adaptive signal
+processing, machine learning, and Bayesian inference.
+
+\paragraph{Adaptive Signal Processing.}
+
+The field of adaptive signal processing has produced robust methods for
+modelling linear systems with time-varying dynamics~\cite{haykin02}. The
+recursive least-squares (RLS) algorithm, for example, is a well-known
+adaptation of the ordinary least squares algorithm that continuously updates
+model parameters to perform linear regression under non-stationary conditions.
+We will use RLS to study time-varying relations between behavioural states, as
+inferred by hidden Markov models, and foraging visit duration.
+
+\paragraph{Adaptive State-Space Models.}
+
+In state-space modelling, the Kalman filter provides a principled way to handle
+non-stationary Gaussian processes with drifting mean and covariance. More
+flexible approaches are needed when data exhibit abrupt regime shifts or
+complex latent dynamics. Switching state-space models, such as Switching Linear
+Dynamical Systems (SLDS) and Switching Hidden Markov Models (sHMMs), model
+discrete changes in underlying system dynamics. For nonlinear, non-Gaussian
+signals, particle filters approximate the posterior distribution through
+sequential sampling. Bayesian online learning techniques offer a general
+framework for continually updating model parameters as new data arrive. Using
+these techniques we will build models that robustly infer kinematics over
+months.
+
+\paragraph{Non-stationarity in machine learning.}
+
+Conventional machine-learning methods train models using schemes such as
+stochastic gradient descent (SGD), which implicitly assume stationarity in the
+data.  Online variants (similar to RLS, above) allow for some adaptation, but
+in deep non-linear systems simple online updates may lead to loss of plasticity
+preventing the trained model from tracking changes in the
+data~\cite{ashAndAdams20}.
+
+Instead, machine-learning approaches rely on a combination of (1) detection
+methods, which monitor for significant changes in data distribution; (2)
+adaptation methods, which incrementally update models using strategies such as
+sliding windows, online learning, or ensemble-based approaches; and (3)
+forgetting mechanisms, which allow models to discard outdated information while
+retaining relevant past knowledge.  Our own recent work has shown how these
+schemes may be blended into a single coherent learning
+approach~\cite{galashovEtAl24}.
+
+We will adapt these and similar approaches to extend many of the non-linear
+base methods of Table 1 to handle drift in data statistics. In particular, we
+have had previous success with non-stationarity in image classification and
+online reinforcement learning settings~\cite{galashovEtAl24}.  We will extend
+these to models that capture more complex relationships than simple
+input-output mappings, including transformers,
+\href{https://github.com/gatsby-sahani/rpm-aistats-2023}{Recognition-Parameterised
+Models (RPMs)}, contrastive models including CEBRA and others listed above.
+
+In summary, robust analysis of NaLoDuCo datasets requires models that
+continuously adapt to evolving data distributions. Our offline analysis
+framework will integrate both established adaptive algorithms and cutting-edge
+methods from continual learning and concept drift to meet this challenge.
+
+\subsubsubsection*{Computational efficiency and scaling}
+
+The large dataset sizes generated by NaLoDuCo experimentation pose a
+significant challenge for fast data analysis. We will develop accelerated
+implementations of all methods in the library.  These implementations will use
+\href{https://docs.jax.dev/}{JAX} for model learning, inference, and numerical
+computation, \href{https://spark.apache.org/}{Apache Spark} or
+\href{https://www.dask.org/}{Dask} to distribute pre-processing and feature
+extraction, and Ray to distribute machine learning and deep learning
+functionality.
+
+\subsubsubsection{Deliverables}
+
+\begin{enumerate}
+
+	\item repository containing implementations of machine learning algorithms
+	for offline processing NaLoDuCo experimental data, adapted to operate in
+	non-stationary environments, and optimised to perform at scale when running
+	on public clouds or institutional high-performance-computing systems.
+
+	\item deployment of the methods in 1 in Amazon EC2 instances, to allow
+	users to analyse on the cloud data from previous SWC NaLoDuCo foraging
+	datasets and AIND NaLoDuCo odour learning datasets stored in the DANDI
+	respository.
+
+\end{enumerate}

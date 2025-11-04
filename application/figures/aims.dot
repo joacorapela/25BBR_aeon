@@ -1,0 +1,18 @@
+digraph g {
+  dataDissemination [label=<<FONT COLOR="BLACK">1. Data<br/>dissemination</FONT>>];
+  dataVisualisation [label=<<FONT COLOR="BLACK">2. Data<br/>visualisation</FONT>>];
+  dataAnalysis [label=<<FONT COLOR="BLACK">3. Data<br/>analysis</FONT>>];
+  spikeSorting [label=<<FONT COLOR="BLACK">4. Spike<br/>sorting</FONT>>];
+
+  dataDissemination -> dataAnalysis [style=invis];
+  dataVisualisation -> spikeSorting [style=invis];
+
+  nonStationarities [label=<<FONT COLOR="BLACK">Non-Stationarites</FONT>>];
+  scale [label=<<FONT COLOR="BLACK">Scale</FONT>>];
+  dataAnalysis -> nonStationarities;
+  dataAnalysis -> scale;
+
+  {rank=same; dataDissemination; dataVisualisation;}
+  {rank=same; spikeSorting; dataAnalysis;}
+  {rank=same; scale; nonStationarities;}
+}
