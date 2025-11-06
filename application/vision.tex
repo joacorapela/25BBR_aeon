@@ -13,7 +13,7 @@ Unit with support from NeuroGEARS, and adapted by the Allen Institute for
 Neural Dynamics (AIND), provides a modular environment of mechatronic elements
 and monitoring and recording pathways, enabling continuous high-resolution
 behavioural and neural measurement over an unprecedented timescale of many
-weeks to months (Figure). Aeon enables a new type of neuroscience experiment.
+weeks to months (Figure~\ref{fig:aeon}). Aeon enables a new type of neuroscience experiment.
 Rather than tightly controlled, isolated, trial-based stimulus-behaviour
 contingencies, multiple contingencies are embedded in a single environment that
 animals explore, learn about, and engage with over weeks. Examples include mice
@@ -25,6 +25,19 @@ including self-paced decisions about engagement with elements of the
 environment, internally-directed exploration, sensorimotor control within each
 local patch, memory and replay events during engagement and during sleep, and
 more.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=4in]{figures/aeon.png}
+
+    \caption{The AEON platform.  \textbf{a}: Example natural behaviours
+    spanning scales of time, space and social interaction.  \textbf{b-d}:
+    Close-up views of one configuration of the AEON environment, in which
+    long-term-housed mice (potentially implanted with Neuropixels probes)
+    explore, drink, forage and eat, escape, nest, sleep, and interact with
+    conspecifics.}
+    \label{fig:aeon}
+\end{figure}
 
 Central to Aeon is the vision of open science. The design specifications of the
 system and components are shared openly\footnote{https://aeon.swc.ucl.ac.uk}.
@@ -43,6 +56,13 @@ these features in a single experimental paradigm.
 % Experiments of this type have been advocated by experts in the field years
 % ago \citep[][p19]{dattaEtAl19}, yet they have not been implemented so far.
 
+NaLoDuCo experimentation will enable researchers to explore neural mechanisms
+underlying ethological behaviours in naturalistic environments over months, for
+the first time.  The experiments will shed new light on a wide range of poorly
+understood neural mechanisms, including how the brain structures complex
+behavioural sequences as a function of the animal needs, learning, adaptation,
+sleep-dependent
+%
 The emerging paradigm of long-duration experimentation is poised to become
 mainstream in the coming years.
 %
@@ -51,11 +71,11 @@ reaching hundreds of terabytes—posing significant challenges in data
 acquisition, management, distribution, visualisation, and analysis.
 %
 To address these challenges, we (GCNU, SWC, AIND, and NeuroGEARS Ltd) will
-collaboratively extend the AEON platform with functionality to share,
-visualise and statistically analyse NaLoDuCo experimental data where it
-leaves, in the cloud or in institutional clusters.
+collaboratively extend the AEON platform with functionality to share, visualise
+and statistically analyse NaLoDuCo experimental data where it leaves, in the
+cloud or in institutional clusters.
 
-\subsubsection{Opportunities in neural data analysis at scale}
+\subsubsection{Opportunities in NaLoDuCo data analysis at scale}
 
 The key lesson from modern AI is that large and diverse datasets unlock much richer models.
 ImageNet, for example, was big and varied enough that deep networks could learn general visual
@@ -188,3 +208,15 @@ stitching together results obtained from small, disjoint subsets.
     \caption{Specific aims}
     \label{fig:aims}
 \end{figure}
+
+\subsubsection{Categorisation of proposed resource}
+
+The proposed resource falls in category ``\emph{2. Maturation of a
+project-based resource}'', as the SWC and Gatsby Unit have mostly been the only
+users of the proposed resource.
+%
+However, it also fall in category ``\emph{3. Further development of an existing
+community resource}'', because since its inception Aeon has been built as a
+community resource and at least two large research institutes, Janelia Research
+Campus and the Allen Institute for Neural Dynamcis, are using it for NaLoDuCo
+data collection.
