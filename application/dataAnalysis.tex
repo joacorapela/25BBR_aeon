@@ -1,19 +1,26 @@
+Modern neuroscience lacks robust methods to characterise long-duration and
+continual time series, especially in settings where the statistical properties
+of the data evolve over time. This limitation present a methodological gap that
+must be addressed in order to unlock the scientific potential of NaLoDuCo
+experiments.
 
-Long-duration, continual data series pose particular analytic challenges,
-especially in settings where the statistical properties of the data vary with
-time.  We will address these challenges by developing a new NaLoDuCo-focused
-environment of machine-learning analysis methods specifically tailored to: (1)
-operate effectively under non-stationary conditions, and (2) scale to very long
-time series.
+We will address these challenges by developing a new NaLoDuCo-focused
+environment of machine-learning analysis methods specifically tailored to
+long-duration and continual time series.
 
-\subsubsubsection*{Base analysis methods}
+Our first goal will be to provide implementations of methods already used at
+the GCNU, SWC, and AIND adapted to optimally process long-duration time series.
+These methods span multiple domains—kinematics, neural dynamics, behavioural
+state segmentation, forecasting, and joint modelling—and are designed to work
+together within an integrated analysis pipeline.
 
-Our first goal will be to provide robust and scalable implementations of
-methods that are already used at the GCNU, SWC, and AIND to analyse neural and
-behavioural time series.  These methods span multiple domains—kinematics,
-neural dynamics, behavioural state segmentation, forecasting, and joint
-modelling—and are designed to work together within an integrated analysis
-pipeline.
+Below we first summarise the functionality of this pipeline, then we highlight
+challenges encountered when using it in long-duration behavioral and neural
+time series, and finally describe methods that we will use to address these
+challenges.
+
+\subsubsubsection*{Pipeline of methods used at the GCNU, SWC, and AIND to
+process behavioral and neural time series}
 
 \noindent\textbf{Behavioural Analysis:}
 
@@ -127,6 +134,9 @@ temporally and semantically aligned neural-behavioural structure.
         \hline
     \end{longtable}
 \end{table}
+
+\subsubsubsection*{Challenges using the previous pipeline in NaLoDuCo
+experiments}
 
 \subsubsubsection*{Non-stationarity}
 
