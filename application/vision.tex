@@ -96,11 +96,15 @@ ask questions---and train models---that simply are not possible with short, tria
   to enough of this variability to make such robustness realistic.
 \end{itemize}
 
-In short, NaLoDuCo's scale and richness let powerful models ``see'' the brain at the timescales
-and in the contexts where its organising principles actually operate, just as large-scale datasets
-did for deep learning in computer vision.
+In short, NaLoDuCo's scale and richness let powerful models ``see'' the brain
+at the timescales and in the contexts where its organising principles actually
+operate, just as large-scale datasets did for deep learning in computer vision.
 
-This emerging paradigm of long-duration experimentation is poised to become
+The previous points show that the true power of NaLoDuCo datasets will only be
+realised through methods that operate on the full dataset, rather than by
+stitching together results obtained from small, disjoint subsets.
+
+The emerging paradigm of long-duration experimentation is poised to become
 mainstream in the coming years.
 %
 However, experiments spanning weeks to months generate massive datasets—often
@@ -116,9 +120,12 @@ leaves, in the cloud or in institutional clusters.
 
 \begin{description}
 
-    \item[1. Data sharing:] We will share our NaLoDuCo foraging data, to allow
-        users interested in accessing it to do so, for example, to analyze
-        NaLoDuCo recordings with new artificial intelligence algorithms.
+    \item[1. Data sharing infrastructure:] We will create infrastructure share
+        our NaLoDuCo datasets, and test it with our foraging data. We envision
+        that this infrastructure will be adopted by other groups around the
+        world generating NaLoDuCo data and wanting to disseminate it. The
+        dissemination of our NaLoDuCo foraging data will, for example, allow
+        users to analyze it with new artificial intelligence algorithms.
 %
         However, this dissemination is not trivial, as datasets are of the
         order of hundreds of terabytes, and it will take users several days to
@@ -161,13 +168,13 @@ leaves, in the cloud or in institutional clusters.
         users of how to access and process efficiently NaLoDuCo data in the
         cloud.
 
-    \item[4. Spike sorting:] Our statistical analysis of neural time series
-        will require knowledge of the spiking activity of single units; i.e.,
-        spike sorting. In long-duration experiments with freely moving animals
-        spike sorting is a challenging problem, because movements of recording
-        probes change the shape of spike waveforms over time and complicate the
-        assignment of spikes to units based on their waveforms.  We will
-        address this problem by developing spike sorting methods for
+    \item[4. Spike sorting:] Most of our statistical analysis of neural time
+        series will require knowledge of the spiking activity of single units;
+        i.e., spike sorting. In long-duration experiments with freely moving
+        animals spike sorting is a challenging problem, because movements of
+        recording probes change the shape of spike waveforms over time and
+        complicate the assignment of spikes to units based on their waveforms.
+        We will address this problem by developing spike sorting methods for
         long-duration, continual and high-channel-count recordings. These
         methods will be deployed in the cloud, with accompanying
         visualisations.
